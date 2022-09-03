@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "746149994997",
+    "project_id": "blood-fed74",
+    "storage_bucket": "blood-fed74.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746149994997:android:9f9e61c40e8715d4bb80bc",
+        "android_client_info": {
+          "package_name": "com.example.bloodzen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "746149994997-8g0rh7va0c6m2ffkd9kkugfdbd0b42cg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBp2dcbH0kP-N3x-n78j80aAYySIm0ZD4o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "746149994997-8g0rh7va0c6m2ffkd9kkugfdbd0b42cg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
