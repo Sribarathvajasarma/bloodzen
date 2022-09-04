@@ -19,12 +19,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
             leading: BackButton(),
             backgroundColor: Colors.transparent,
             elevation: 0,
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.person),
-              ),
-            ],
+            centerTitle: true,
+            title: Text('Edit Profile'),
           ),
           body: ListView(
             padding: EdgeInsets.symmetric(horizontal: 32),

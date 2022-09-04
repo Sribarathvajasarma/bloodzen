@@ -27,12 +27,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           leading: BackButton(),
           backgroundColor: Colors.transparent,
           elevation: 0,
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.person),
-            ),
-          ],
+          centerTitle: true,
+          title: Text('Profile'),
         ),
         body: ListView(
           physics: BouncingScrollPhysics(),

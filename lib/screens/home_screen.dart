@@ -2,6 +2,7 @@ import 'package:bloodzen/resources/auth_methods.dart';
 import 'package:bloodzen/responsive/mobile_screen_layout.dart';
 import 'package:bloodzen/responsive/responsive_layout_screen.dart';
 import 'package:bloodzen/responsive/web_screen_layout.dart';
+import 'package:bloodzen/screens/details_screen.dart';
 import 'package:bloodzen/screens/login_screen.dart';
 import 'package:bloodzen/utils/colors.dart';
 import 'package:bloodzen/widgets/request_card.dart';
@@ -108,8 +109,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                             MainAxisAlignment.end,
                                         children: [
                                           TextButton(
-                                            child: Text("Donate"),
-                                            onPressed: () {},
+                                            child: Text("Details"),
+                                            onPressed: () =>
+                                                Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DetailsScreen(
+                                                  snap: snapshot
+                                                      .data!.docs[index]
+                                                      .data(),
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                           SizedBox(
                                             width: 8,
