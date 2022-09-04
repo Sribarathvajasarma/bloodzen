@@ -84,8 +84,7 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-            child: Container(
+        body: Container(
       padding: const EdgeInsets.symmetric(horizontal: 32),
       width: double.infinity,
       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
@@ -185,6 +184,6 @@ class _SignupScreenState extends State<SignupScreen> {
           ),
         ], mainAxisAlignment: MainAxisAlignment.center),
       ]),
-    )));
+    ));
   }
 }
