@@ -7,15 +7,18 @@ class Request {
   final String requestId;
   final String profImage;
   final datePublished;
+  final String neededBefore;
+  final String bloodGrp;
 
-  const Request({
-    required this.description,
-    required this.uid,
-    required this.username,
-    required this.requestId,
-    required this.profImage,
-    required this.datePublished,
-  });
+  const Request(
+      {required this.description,
+      required this.uid,
+      required this.username,
+      required this.requestId,
+      required this.profImage,
+      required this.datePublished,
+      required this.neededBefore,
+      required this.bloodGrp});
 
   static Request fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
@@ -26,7 +29,9 @@ class Request {
         requestId: snapshot['requestId'],
         datePublished: snapshot["datePublished"],
         username: snapshot["username"],
-        profImage: snapshot['profImage']);
+        profImage: snapshot['profImage'],
+        neededBefore: snapshot['neededBefore'],
+        bloodGrp: snapshot['bloodGrp']);
   }
 
   Map<String, dynamic> toJson() => {
@@ -35,6 +40,8 @@ class Request {
         "username": username,
         "requestId": requestId,
         "datePublished": datePublished,
-        'profImage': profImage
+        "profImage": profImage,
+        "neededBefore": neededBefore,
+        "bloodGrp": bloodGrp
       };
 }

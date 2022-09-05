@@ -99,9 +99,7 @@ class DetailsScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 15),
                     Text(
-                      DateFormat.yMMMd().format(
-                        snap['neededBefore'].toDate(),
-                      ),
+                      snap['neededBefore'],
                       style: TextStyle(fontSize: 16, height: 1),
                     ),
                     const SizedBox(height: 15),

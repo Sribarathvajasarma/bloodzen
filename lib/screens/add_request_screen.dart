@@ -1,8 +1,13 @@
+import 'package:bloodzen/models/user.dart';
+import 'package:bloodzen/providers/user_provider.dart';
+import 'package:bloodzen/resources/firestore_method.dart';
+import 'package:bloodzen/utils/utils.dart';
 import 'package:bloodzen/widgets/button_widget.dart';
 import 'package:bloodzen/widgets/request_text_input_widget.dart';
 import 'package:bloodzen/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class AddRequestScreen extends StatefulWidget {
   const AddRequestScreen({Key? key}) : super(key: key);
@@ -15,6 +20,7 @@ class _AddRequestScreenState extends State<AddRequestScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _groupController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
 
   @override
   void dispose() {
@@ -23,6 +29,7 @@ class _AddRequestScreenState extends State<AddRequestScreen> {
     _nameController.dispose();
     _groupController.dispose();
     _dateController.dispose();
+    _descriptionController.dispose();
   }
 
   DateTime selectedDate = DateTime.now();
@@ -31,6 +38,7 @@ class _AddRequestScreenState extends State<AddRequestScreen> {
   bool showDate = false;
   bool showTime = false;
   bool showDateTime = false;
+  bool _isLoading = false;
 
   // Select for Date
   Future<DateTime> _selectDate(BuildContext context) async {
@@ -107,8 +115,47 @@ class _AddRequestScreenState extends State<AddRequestScreen> {
     return format.format(dt);
   }
 
+  void postRequest(
+    String uid,
+    String username,
+    String profImage,
+  ) async {
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      // print(_descriptionController.text);
+      // print(uid);
+      // print(_nameController.text);
+      // print(profImage);
+      // print(getDateTime());
+
+      String res = await FirestoreMethods().uploadRequest(
+          _descriptionController.text,
+          uid,
+          _nameController.text,
+          profImage,
+          getDateTime().toString(),
+          _groupController.text);
+      if (res == 'success') {
+        setState(() {
+          _isLoading = false;
+        });
+        showSnackBar('Request posted!', context);
+      } else {
+        setState(() {
+          _isLoading = false;
+        });
+        showSnackBar(res, context);
+      }
+    } catch (e) {
+      showSnackBar(e.toString(), context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final User user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(),
@@ -122,6 +169,12 @@ class _AddRequestScreenState extends State<AddRequestScreen> {
         physics: BouncingScrollPhysics(),
         children: [
           const SizedBox(height: 24),
+          _isLoading
+              ? const LinearProgressIndicator()
+              : const Padding(
+                  padding: EdgeInsets.only(top: 0),
+                ),
+          const Divider(),
           RequestFieldWidget(
               label: "Name",
               textEditingController: _nameController,
@@ -132,6 +185,12 @@ class _AddRequestScreenState extends State<AddRequestScreen> {
               label: "Blood Group",
               textEditingController: _groupController,
               hintText: "Required blood group",
+              textInputType: TextInputType.text),
+          const SizedBox(height: 24),
+          RequestFieldWidget(
+              label: "Description",
+              textEditingController: _descriptionController,
+              hintText: "Description...",
               textInputType: TextInputType.text),
           const SizedBox(height: 24),
           Text("Need Before"),
@@ -156,14 +215,20 @@ class _AddRequestScreenState extends State<AddRequestScreen> {
             ),
           ),
           const SizedBox(height: 14),
-          Center(child: buildUpgradeButton()),
+          Center(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: StadiumBorder(),
+                onPrimary: Colors.white,
+                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+              ),
+              child: Text("Add request"),
+              onPressed: (() =>
+                  postRequest(user.uid, user.username, user.photoUrl)),
+            ),
+          ),
         ],
       ),
     );
   }
-
-  Widget buildUpgradeButton() => ButtonWidget(
-        text: 'Add request',
-        onClicked: () {},
-      );
 }
