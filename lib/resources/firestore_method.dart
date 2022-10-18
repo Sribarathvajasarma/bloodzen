@@ -31,4 +31,43 @@ class FirestoreMethods {
     }
     return res;
   }
+
+  Future<String> uploadDetails(
+      String uid, String city, String bloodGrp, String mobile) async {
+    String res = "some error occured";
+    try {
+      _firestore.collection('users').doc(uid).set(
+          {"city": city, "bloodGrp": bloodGrp, "mobile": mobile},
+          SetOptions(merge: true));
+      res = "success";
+    } catch (e) {
+      res = e.toString();
+    }
+    return res;
+  }
+
+  Future<String> editDetails(String requestId, String name, String bloodGrp,
+      String description) async {
+    String res = "some error occured";
+    try {
+      _firestore.collection('requests').doc(requestId).set(
+          {"username": name, "bloodGrp": bloodGrp, "description": description},
+          SetOptions(merge: true));
+      res = "success";
+    } catch (e) {
+      res = e.toString();
+    }
+    return res;
+  }
+
+  Future<String> deletePost(String rid) async {
+    String res = "some error occured";
+    try {
+      _firestore.collection('requests').doc(rid).delete();
+      res = "success";
+    } catch (e) {
+      res = e.toString();
+    }
+    return res;
+  }
 }

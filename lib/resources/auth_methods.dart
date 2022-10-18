@@ -13,6 +13,7 @@ class AuthMethods {
 
   Future<model.User> getUserDetails() async {
     User currentUser = _auth.currentUser!;
+
     DocumentSnapshot snap =
         await _firestore.collection('users').doc(currentUser.uid).get();
     return model.User.fromSnap(snap);
@@ -41,12 +42,14 @@ class AuthMethods {
             .uploadImageToStorage('profilePics', file, false);
 
         model.User user = model.User(
-          username: username,
-          uid: cred.user!.uid,
-          email: email,
-          bio: bio,
-          photoUrl: photoUrl,
-        );
+            username: username,
+            uid: cred.user!.uid,
+            email: email,
+            bio: bio,
+            photoUrl: photoUrl,
+            bloodGrp: "example",
+            city: "example",
+            mobile: "example");
 
         await _firestore.collection('users').doc(cred.user!.uid).set(
               user.toJson(),

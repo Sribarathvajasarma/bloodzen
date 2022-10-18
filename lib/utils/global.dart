@@ -1,3 +1,4 @@
+import 'package:bloodzen/screens/add_details_screen.dart';
 import 'package:bloodzen/screens/add_request_screen.dart';
 import 'package:bloodzen/screens/home_screen.dart';
 import 'package:bloodzen/screens/profile_screen.dart';
@@ -10,6 +11,6 @@ const homeScreenItems = [
   HomeScreen(),
   SearchScreen(),
   AddRequestScreen(),
-  ProfileScreen(),
-  Text('Profile'),
+  //ProfileScreen(),
+  AddDetailsScreen()
 ];
